@@ -1,0 +1,42 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Topwear{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <div class="col-sm-3">
+    <div class="list-group">
+        <a href="{% url 'topwear' %}" class="list-group-item list-group-item-danger list-group-item-action" aria-current="true">
+          All Topwear
+        </a>
+        <br>
+        <br>
+        
+        <li class="list-group-item list-group-item-dark">Mobile Catogry Price</li>
+        <a href="{% url 'topweardata' 'below' %}" class="list-group-item list-group-item-action">Below < 700</a>
+        <a href="{% url 'topweardata' 'above' %}" class="list-group-item list-group-item-action">Above > 700</a>
+      </div>
+  </div>
+
+  
+  <div class="col-sm-8 offset-sm-1">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for tp in topwear %}
+        
+        <div class="col">
+          <div class="card" style="width: 16rem;">
+            <a href="{% url 'product-detail' tp.id %}"><img src="{{tp.product_image.url}}" class="card-img-top" height="350px" alt="..."></a>
+            <div class="card-body">
+              <h5 class="card-title">{{tp.title | capfirst}}</h5>
+              <h4> Rs. {{tp.discounted_price}}<small class="fw-light text-decoration-line-through"> {{tp.selling_price}}</small></h4> <br>
+              <p class="card-text">{{tp.description | capfirst}}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      
+      </div>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}
